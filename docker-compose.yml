@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  app:
+    container_name: "${OWNER_CONTAINER}-${NAME_CONTAINER}-node"
+    env_file : 
+      - .env
+    build: 
+      context: .
+      dockerfile: Docker/Dockerfile
+    volumes:
+      - .:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - '${PORT_SERVER}:3000'
+    networks:
+      - redinterna
+  bd:
+    container_name: ${OWNER_CONTAINER}-${NAME_CONTAINER}-psql
+    image: postgres:13
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - '${PORT_BD}:5432'
+    volumes:
+      - contenedorbd:/var/lib/postgresql/data/
+      - ./Docker/configs/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    networks:
+      - redinterna
+volumes:
+  contenedorbd:
+    external:
+      name: "bd-${VOLUMEN_BD}${NAME_CONTAINER}"
+networks:
+  redinterna:
+    name: "red-${VOLUMEN_BD}-${NAME_CONTAINER}"
+    driver: bridge

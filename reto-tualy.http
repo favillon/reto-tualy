@@ -1,0 +1,53 @@
+###
+GET http://localhost:3000/api/user
+
+###
+GET http://localhost:3000/api/user?from=4&limit=9
+
+
+###
+POST http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+    "full_name" : "Usuario desde Post2",
+    "email" : "userpost@bbbb.com"
+}
+
+
+###
+PUT http://localhost:3000/api/user/1
+Content-Type: application/json
+
+{
+    "full_name" : "Nombre Actualizado3"
+}
+
+###
+DELETE http://localhost:3000/api/user/1
+
+# Services
+
+
+
+###
+GET http://localhost:3000/api/service
+
+###
+POST http://localhost:3000/api/service
+Content-Type: application/json
+
+{
+	"user_id": 6,
+	"date_of_service": "2021-03-01T05:00:00.000Z", 
+	"products": [ 
+		{
+			"id": 1,
+			"qty": 50 
+        },
+        {
+			"id": 4,
+			"qty": 2 
+        }
+	]
+}
