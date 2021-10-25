@@ -24,6 +24,8 @@ PORT_BD=5431
 POSTGRES_USER=root
 POSTGRES_PASSWORD=masterroot
 POSTGRES_DB=micro_database
+POSTGRES_DB_TEST=micro_database_test
+NODE_ENV=production
 ```
 
 
