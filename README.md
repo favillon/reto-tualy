@@ -32,7 +32,7 @@ POSTGRES_DB=micro_database
 Crear el volumen manualmente
 
 ```shell
-docker volume create --name=bd-databaseskeleton-tualy
+docker volume create --name=bd-database-skeleton-tualy
 ```
 
 Levantar los contenedores
@@ -55,3 +55,10 @@ Se puede usar la extension de vscode `humao.rest-client` [github](https://github
 
 
 ![Rest](./img/rest.png)
+
+
+## Ejecucion de los test
+
+Se realizaron test en base a todos los servicios expuestos 
+
+![Test](./img/test.png)

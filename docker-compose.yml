@@ -30,7 +30,7 @@ services:
 volumes:
   contenedorbd:
     external:
-      name: "bd-${VOLUMEN_BD}${NAME_CONTAINER}"
+      name: "bd-${VOLUMEN_BD}-${NAME_CONTAINER}"
 networks:
   redinterna:
     name: "red-${VOLUMEN_BD}-${NAME_CONTAINER}"

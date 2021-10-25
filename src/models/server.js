@@ -1,7 +1,7 @@
 const cors = require('cors')
 const express = require('express')
 
-const {db} = require('../db/connection')
+const {db,closeConnection} = require('../db/connection')
 
 
 class Server {
@@ -12,6 +12,7 @@ class Server {
         this.path = '/api/'
         this.userPath = this.path + 'user'
         this.servicesPath = this.path + 'service'
+        this.servicio
 
         // Conexion BD
         this.dbConnection()
@@ -45,14 +46,27 @@ class Server {
     }
 
     routes(){
+        this.app.use('/api', require('../routes/api.router'))
         this.app.use(this.userPath, require('../routes/user.router'))
         this.app.use(this.servicesPath, require('../routes/service.router'))
     }
 
     listen(){
-        this.app.listen(this.port, () =>{
+        this.servicio = this.app.listen(this.port, () =>{
             console.log(`Server Node Run port ${this.port}`);
         })
+    }
+    async closed(){
+        await this.servicio.close()
+    }
+    async closedDbConnection(){
+        try {
+            await db.close()
+            console.log('Conexion cerrada');
+        } catch (error) {
+            console.log('Error en el cierre');
+            throw new Error(error)
+        }
     }
 }
 

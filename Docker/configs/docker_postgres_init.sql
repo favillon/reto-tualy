@@ -1,3 +1,5 @@
+-- Create Tables
+
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "full_name" varchar,
@@ -27,11 +29,10 @@ CREATE TABLE "services" (
   "updated_at" timestamp DEFAULT (now())
 );
 
+-- References
 ALTER TABLE "services" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-
-
-
+-- Inserts
 INSERT INTO users (full_name, email, status) VALUES 
 ('Usuario 1', 'usuario1@email.com', true),
 ('Usuario 2', 'usuario2@email.com', true),
@@ -61,5 +62,46 @@ INSERT INTO products (name, price, status) VALUES
 INSERT INTO services (user_id, date_of_service, products) VALUES 
 (1, now(), '[{"id":1,"qty":1},{"id":2,"qty":2}]'),
 (2, now(), '[{"id":3,"qty":3}]'),
-(3, now(), '[{"id":4,"qty":4},{"id":5,"qty":5}]');
+(3, now(), '[{"id":4,"qty":4},{"id":5,"qty":5}]'),
 (4, now(), '[{"id":6,"qty":6},{"id":7,"qty":7}]');
+
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+
+-- Database Test
+CREATE DATABASE micro_database_test;
+
+-- use
+\c micro_database_test
+
+CREATE TABLE "users" (
+  "id" SERIAL PRIMARY KEY,
+  "full_name" varchar,
+  "email" varchar,
+  "status" boolean,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now()),
+  UNIQUE(email)
+);
+
+CREATE TABLE "products" (
+  "id" SERIAL PRIMARY KEY,
+  "name" varchar,
+  "price" int,
+  "status" boolean,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "services" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" integer,
+  "date_of_service" timestamp,
+  "products" jsonb,
+  "status" boolean,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
+
+--ALTER TABLE "services" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
