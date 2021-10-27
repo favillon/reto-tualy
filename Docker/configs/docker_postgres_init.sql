@@ -24,7 +24,7 @@ CREATE TABLE "services" (
   "user_id" integer,
   "date_of_service" timestamp,
   "products" jsonb,
-  "status" boolean,
+  "status" boolean DEFAULT true,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );

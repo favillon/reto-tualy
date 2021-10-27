@@ -12,6 +12,11 @@ services:
       - /usr/src/app/node_modules
     ports:
       - '${PORT_SERVER}:3000'
+      - '587:587'
+      - '443:443'
+      - '25:25'
+    extra_hosts:
+      - "smtp.mailtrap.io:4.158.84.12"
     networks:
       - redinterna
   bd:
@@ -25,6 +30,25 @@ services:
     volumes:
       - contenedorbd:/var/lib/postgresql/data/
       - ./Docker/configs/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    networks:
+      - redinterna
+  redis:
+    image: redis
+    container_name: ${OWNER_CONTAINER}-${NAME_CONTAINER}-redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "${REDIS_PORT}:6379"
+    networks:
+      - redinterna
+  redis-commander:
+    container_name: ${OWNER_CONTAINER}-${NAME_CONTAINER}-redis-commander
+    image: rediscommander/redis-commander
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "${REDIS_PORT_COMMANDER}:8081"
     networks:
       - redinterna
 volumes:
