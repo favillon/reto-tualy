@@ -7,9 +7,10 @@ let subject = 'Reto Tualy v1'
 let service = argv[3]
 let totalaService = argv[4]
 let fecha = new Date()
+let clave_usuario = process.env.HASHMAILTRAP
 const curlSend = `curl --ssl-reqd \
 --url 'smtp://smtp.mailtrap.io:2525' \
---user '4691c277aec232:8ba0f8498c238d' \
+--user '${clave_usuario}' \
 --mail-from ${emailFrom} \
 --mail-rcpt ${emailRcpt} \
 --upload-file - <<EOF
@@ -42,6 +43,7 @@ Content-Disposition: inline
   </head>
   <body style="font-family: sans-serif;">
     <h1>Reto tualy ${service}</h1>
+    <p>fecha : ${fecha}</p>
     <p>Services : ${service}</p>
     <p>TotalServices : ${totalaService}</p>
   </body>
