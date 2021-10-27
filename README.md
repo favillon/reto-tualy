@@ -70,4 +70,6 @@ Se realizaron test en base a todos los servicios expuestos
 ![Test](./img/test.png)
 
 
-<iframe width="560" height="315" src='https://dbdiagram.io/embed/61723a446239e146477cfd0f'> </iframe>
+## Diagrama BD
+
+[Diagrama](https://dbdiagram.io/embed/61723a446239e146477cfd0f)
