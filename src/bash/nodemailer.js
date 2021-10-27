@@ -1,9 +1,12 @@
 const { exec } = require('child_process');
-let emailFrom = 'email@email.com'
-let emailRcpt = 'user@example.com'
+const { argv } = require('process');
+console.log(argv)
+let emailFrom = 'usuario@tualy.com'
+let emailRcpt = argv[2]
 let subject = 'Reto Tualy v1'
-let service = 5
-let totalaService =1000
+let service = argv[3]
+let totalaService = argv[4]
+let fecha = new Date()
 const curlSend = `curl --ssl-reqd \
 --url 'smtp://smtp.mailtrap.io:2525' \
 --user '4691c277aec232:8ba0f8498c238d' \
@@ -12,7 +15,7 @@ const curlSend = `curl --ssl-reqd \
 --upload-file - <<EOF
 From: Magic Elves <${emailFrom}>
 To: Mailtrap Inbox <${emailRcpt}>
-Subject: ${subject}
+Subject: ${subject} - Servico : ${service}
 Content-Type: multipart/alternative; boundary="boundary-string"
 
 --boundary-string
@@ -38,7 +41,7 @@ Content-Disposition: inline
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body style="font-family: sans-serif;">
-    <h1>Hello world?</h1>
+    <h1>Reto tualy ${service}</h1>
     <p>Services : ${service}</p>
     <p>TotalServices : ${totalaService}</p>
   </body>
