@@ -1,6 +1,6 @@
 const Queue = require('bull')
 const nodemailer = require("nodemailer")
-const { exec } = require('child_process');
+
 
 const Service = require('../models/service.model')
 const Product = require('../models/product.model')
@@ -73,7 +73,7 @@ servicioQueue.process(async(job, done)=>{
 
 
 const sendEmailCurl = async({service, email, totalaService}) => {
-    
+    const { exec } = require('child_process');
     let emailFrom = 'email@email.com'
     let emailRcpt = email
     let subject = 'Reto Tualy v1'
@@ -122,15 +122,25 @@ const sendEmailCurl = async({service, email, totalaService}) => {
 
     --boundary-string--
     EOF`
-        console.log(curlSend);
+     
     exec(curlSend, (err, stdout, stderr) => {
         if (err) {
             console.error(err)
+            console.log("curlSend1");
         } else {
+            console.log("curlSend2");
             console.log(`stdout: ${stdout}`);
             console.log(`stderr: ${stderr}`);
         }
-    });
+    });    
+    exec('node nodemailer.js  ', (err, stdout, stderr) => {
+        if (err) {
+            console.error(err)
+        } else {            
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+        }
+    })
 }
 const sendEmailNodeEmail  = async({service, email, totalaService}) => {
 

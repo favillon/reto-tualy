@@ -16,7 +16,7 @@ services:
       - '443:443'
       - '25:25'
     extra_hosts:
-      - "smtp.mailtrap.io:4.158.84.12"
+      - "smtp.mailtrap.io:54.158.84.126"
     networks:
       - redinterna
   bd:
